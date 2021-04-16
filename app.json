@@ -1,0 +1,12 @@
+{
+  "name": "native-cloud-firestore",
+  "displayName": "native-cloud-firestore",
+  "expo": {
+    "name": "native-cloud-firestore",
+    "slug": "native-cloud-firestore",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
