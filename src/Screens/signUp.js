@@ -17,17 +17,21 @@ const SignUp = ({ navigation }) => {
             password === ''
         ) {
             validationMessage = 'Please enter user name';
+            Alert.alert(validationMessage);
         } else if (displayName === '') {
             validationMessage = 'Please enter valid user name'
+            Alert.alert(validationMessage);
         } else if (email === '') {
             validationMessage = 'Please enter valid email address'
+            Alert.alert(validationMessage);
         } else if (password === '') {
             validationMessage = 'Please enter valid password'
+            Alert.alert(validationMessage);
         }
         else {
+            console.log("email, password, displayname", email, password, displayName);
             register(email, password, displayName)
         }
-        Alert.alert(validationMessage);
     }, [email, password, displayName]);
     return (
         <View style={Styles.container}>

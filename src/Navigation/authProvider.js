@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
                     }
                 },
                 register: async (email, password, displayName) => {
-                    console.log("registerCredentials", email, password, displayName);
                     try {
                         const signin = await auth().createUserWithEmailAndPassword(email, password);
                         await signin.user.updateProfile({

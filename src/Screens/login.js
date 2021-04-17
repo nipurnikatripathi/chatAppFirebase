@@ -14,16 +14,18 @@ const Login = ({ navigation }) => {
             email === '' &&
             password === ''
         ) {
-            validationMessage = 'Please enter valid email address'
+            validationMessage = 'Please enter valid email address';
+            Alert.alert(validationMessage);
         } else if (email === '') {
-            validationMessage = 'Please enter valid email address'
+            validationMessage = 'Please enter valid email address';
+            Alert.alert(validationMessage);
         } else if (password === '') {
-            validationMessage = 'Please enter valid password'
+            validationMessage = 'Please enter valid password';
+            Alert.alert(validationMessage);
         }
         else {
             login(email, password)
         }
-        Alert.alert(validationMessage);
     }, [email, password]);
 
     return (

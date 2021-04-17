@@ -14,8 +14,8 @@ export default function GroupRoom({ route }) {
 
         const messageCollectionRef = firestore().collection('OneToOneMessageThreads');
 
-        const senderOne = messageCollectionRef.where("receiverId", "==", receiverId).get();
-        const senderTwo = messageCollectionRef.where("senderId", "==", receiverId).get();
+        const senderOne = messageCollectionRef.where("receiverId", "==", receiverId).where("senderId", "==", auth().currentUser.uid).get();
+        const senderTwo = messageCollectionRef.where("senderId", "==", receiverId).where("receiverId", "==", auth().currentUser.uid).get();
 
         const [
             senderTypeOne,
@@ -106,17 +106,17 @@ const Styles = StyleSheet.create({
         paddingBottom: 50,
     },
     messageBox: {
+        flex: 1,
         position: 'absolute',
         flexDirection: 'row',
         bottom: 0,
-        height: 50,
     },
     messageHeading: {
         fontSize: 12,
         color: 'blue'
     },
     input: {
-        width: 310,
+        flexGrow: 1,
         borderWidth: 1,
         borderColor: 'black',
         backgroundColor: 'white',
