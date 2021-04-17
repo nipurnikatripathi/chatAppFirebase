@@ -6,6 +6,7 @@ import HomeScreen from '../Screens/homeScreen';
 import RoomScreen from '../Screens/roomScreen';
 import AddRoomScreen from '../Screens/addRoomScreen';
 import GroupRoom from '../Screens/groupRoom';
+import AddProfilePicture from '../Screens/addProfilePicture';
 
 const Stack = createStackNavigator();
 const ChatAppStack = createStackNavigator();
@@ -26,8 +27,9 @@ function ChatApp() {
                     fontSize: 22,
                 },
             }}
-            initialRouteName='Home'
+            initialRouteName='AddProfilePicture'
         >
+            <ChatAppStack.Screen name='AddProfilePicture' component={AddProfilePicture} />
             <ChatAppStack.Screen name='Room' component={RoomScreen} />
             <ChatAppStack.Screen options={({ navigation }) => ({
                 headerRight: () => (

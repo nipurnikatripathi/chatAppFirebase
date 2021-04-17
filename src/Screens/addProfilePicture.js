@@ -1,53 +1,43 @@
 import React, { useState } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 
-export default function AddRoomScreen({ navigation }) {
-    const [roomName, setRoomName] = useState('');
+const AddProfilePicture = ({ navigation }) => {
+    const [profilePicture, setProfilePicture] = useState('This is my profile picture')
 
-    function handleButtonPress() {
-        if (roomName.length > 0) {
-            firestore()
-                .collection('GROUPS')
-                .add({
-                    group_name: roomName,
-                    created_at: new Date().getTime(),
-                    created_by: auth().currentUser.uid,
-                    // members= [...]
-                })
-                .then(() => {
-                    navigation.navigate('Home');
-                });
-        }
+    const handleAddProfilePicture = () => {
+        navigation.navigate("Home")
     }
 
+    const handleSkip = () => {
+        navigation.navigate("Home")
+    }
     return (
         <View style={Styles.container}>
-            <TouchableOpacity onPress={() => navigation.goBack()}
-                style={Styles.close}>
-                <Text style={Styles.buttonText}>X</Text>
-            </TouchableOpacity>
-            <Text style={Styles.heading}>Create a new chat room</Text>
+            <Text style={Styles.heading}>Add Profile Picture</Text>
             <TextInput
                 style={Styles.input}
                 onChangeText={userRoomName => setRoomName(userRoomName)}
-                placeholder="Please enter room name"
+                placeholder="Please select your profile picture from gallery"
                 placeholderTextColor="black"
-                value={roomName}
+                value={profilePicture}
                 keyboardType="default"
                 autoCapitalize='none'
                 autoCorrect={false}
             />
-            <TouchableOpacity onPress={handleButtonPress}
+            <TouchableOpacity
+                onPress={handleAddProfilePicture}
                 style={Styles.button}>
-                <Text style={Styles.buttonText}>Create</Text>
+                <Text style={Styles.buttonText}>Add</Text>
             </TouchableOpacity>
-
+            <TouchableOpacity onPress={handleSkip}
+                style={Styles.close}>
+                <Text style={Styles.buttonText}>Skip</Text>
+            </TouchableOpacity>
         </View>
-    );
+    )
 }
 
+export default AddProfilePicture;
 
 const Styles = StyleSheet.create({
     container: {
@@ -63,11 +53,11 @@ const Styles = StyleSheet.create({
     },
     close: {
         position: 'absolute',
-        top: 10,
+        bottom: 10,
         right: 10,
-        height: 30,
-        width: 30,
-        borderRadius: 30,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
         backgroundColor: "white",
         justifyContent: 'center',
         alignItems: 'center'

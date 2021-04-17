@@ -44,12 +44,14 @@ export const AuthProvider = ({ children }) => {
                         });
                         await AsyncStorage.setItem('isNewUser', JSON.stringify(login.additionalUserInfo.isNewUser))
 
+                        // await AsyncStorage.setItem('User', JSON.stringify(login.additionalUserInfo.isNewUser))
+
                         await firestore()
                             .collection('USERS')
                             .add({
                                 name: displayName,
                                 email: email,
-                                uid: signin.user.uid
+                                uid: signin.user.uid,
                             })
                         console.log("User account created & signed in!", signin, signin.user);
 
