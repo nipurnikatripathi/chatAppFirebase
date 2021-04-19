@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
                         await firestore()
                             .collection('USERS')
                             .add({
+                                type: 2,
                                 name: displayName,
                                 email: email,
                                 uid: signin.user.uid,

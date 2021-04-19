@@ -10,50 +10,46 @@ const HomeScreen = ({ navigation }) => {
     const { user, logout } = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
-    // const [groupUsers, setGroupUsers] = useState([]);
+
+    useEffect(() => {
+        getAllUsers();
+    }, [])
+
 
     const getAllUsers = async () => {
 
         const userCollectionRef = firestore().collection('USERS');
-        // const groupCollectionRef = firestore().collection('THREADS');
+        const groupCollectionRef = firestore().collection('GROUPS');
 
         const registeredUser = userCollectionRef.get();
-        // const groupRooms = groupCollectionRef.get();
+        const groupRooms = groupCollectionRef.get();
 
         const [
             registeredUserInApp,
-            // groupRoomsInApp,
+            groupRoomsInApp,
         ] = await Promise.all([registeredUser,
-            // groupRooms
+            groupRooms
         ]);
 
         const registeredUserArray = registeredUserInApp.docs;
-        // const groupRoomsArray = groupRoomsInApp.docs;
+        const groupRoomsArray = groupRoomsInApp.docs;
 
         const userRegistered = registeredUserArray.map((value) => {
             return { ...value.data() }
         });
 
-        // const groupRegistered = groupRoomsArray.map((value) => {
-        //     return { ...value.data() }
-        // });
+        const groupRegistered = groupRoomsArray.map((value) => {
+            return { ...value.data() }
+        });
 
-        // const allUsersCollection = registeredUserArray.concat(groupRoomsArray);
+        const allUsersCollection = registeredUserArray.concat(groupRoomsArray);
 
-        // const fetchUsers = allUsersCollection.map((value) => {
-        //     return { ...value.data() }
-        // });
+        const fetchUsers = allUsersCollection.map((value) => {
+            return { ...value.data() }
+        });
 
-
-        setUsers(userRegistered);
-        // setGroupUsers(groupRegistered);
+        setUsers(fetchUsers);
     }
-
-    useEffect(() => {
-        getAllUsers()
-    }, [
-        //groupUsers
-    ])
 
     // if (loading) {
     //     return <Loading />;
@@ -66,18 +62,18 @@ const HomeScreen = ({ navigation }) => {
     }
 
     const List = ({ item }) => {
+        console.log("item in list", item)
         return (
             (auth().currentUser.uid !== item.uid) &&
             <TouchableOpacity onPress={() => handleNavigation(item)}
                 style={Styles.listContainer}>
                 <Text style={Styles.listText}>{item.name}</Text>
             </TouchableOpacity>
-
         )
     }
 
     const handleNavigation = (item) => {
-        navigation.navigate('Room', { receiverName: item.name, receiverId: item.uid });
+        navigation.navigate('Room', { roomData: item });
     }
 
     return (
@@ -86,20 +82,6 @@ const HomeScreen = ({ navigation }) => {
                 title="LOGOUT"
                 onPress={() => logout()}
             />
-            {/* {groupUsers &&
-                <View>
-                    <Text style={Styles.heading}> Group Rooms </Text>
-                    <FlatLis console.log("clicked!!!"); navigation.navigate('Room', { receiverName: item.name, receiverId: item.uid })t
-                        data={groupUsers}
-                        keyExtractor={(item) => item.uid}
-                        ItemSeparatorComponent={() => <Divider />}
-                        renderItem={({ item }) => {
-                            return (
-                                <List item={item} />)
-                        }}
-                    />
-                </View>
-            } */}
             <FlatList
                 data={users}
                 keyExtractor={(item) => item.uid}

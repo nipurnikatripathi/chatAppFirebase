@@ -16,18 +16,21 @@ const SignUp = ({ navigation }) => {
             email === '' &&
             password === ''
         ) {
-            validationMessage = 'Please enter user name';
+            validationMessage = 'Please enter user name';;
+            Alert.alert(validationMessage);
         } else if (displayName === '') {
-            validationMessage = 'Please enter valid user name'
+            validationMessage = 'Please enter valid user name';
+            Alert.alert(validationMessage);
         } else if (email === '') {
-            validationMessage = 'Please enter valid email address'
+            validationMessage = 'Please enter valid email address';
+            Alert.alert(validationMessage);
         } else if (password === '') {
-            validationMessage = 'Please enter valid password'
+            validationMessage = 'Please enter valid password';
+            Alert.alert(validationMessage);
         }
         else {
             register(email, password, displayName)
         }
-        Alert.alert(validationMessage);
     }, [email, password, displayName]);
     return (
         <View style={Styles.container}>

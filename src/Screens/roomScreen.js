@@ -8,11 +8,12 @@ export default function GroupRoom({ route }) {
     const [messages, setMessages] = useState('');
     const [threads, setThreads] = useState([]);
 
-    const { receiverName, receiverId } = route.params;
+    // const { receiverName, receiverId, roomType } = route.params;
 
+    console.log("params", route.params)
     const getMessages = async () => {
 
-        const messageCollectionRef = firestore().collection('OneToOneMessageThreads');
+        const messageCollectionRef = firestore().collection('MESSAGES');
 
         const senderOne = messageCollectionRef.where("receiverId", "==", receiverId).get();
         const senderTwo = messageCollectionRef.where("senderId", "==", receiverId).get();
@@ -44,7 +45,7 @@ export default function GroupRoom({ route }) {
 
     const handleSend = async () => {
         await firestore()
-            .collection('OneToOneMessageThreads')
+            .collection('MESSAGES')
             .add({
                 senderName: auth().currentUser.providerData[0].displayName,
                 senderId: auth().currentUser.uid,
